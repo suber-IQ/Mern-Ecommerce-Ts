@@ -13,6 +13,7 @@ export interface IUser extends Document{
     createdAt: Date;
     resetPasswordToken?: string;
     resetPasswordExpire?: Date;
+   
     getJWTToken(): string;
     isModified(field: string): boolean;
     comparePassword(password: string) : Promise<boolean>
@@ -34,6 +35,11 @@ export interface LoginUserRequest extends Request {
     email: string;
     password: string;
    }
+};
+
+
+export interface AuthRequest extends Request {
+    user?: IUser;
 };
 
 

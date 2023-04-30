@@ -40,13 +40,14 @@ const userSchema: Schema = new mongoose.Schema({
       type: String,
       default: "user",
     },
+    
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
     createdAt: {
       type: Date,
       default: Date.now,
     },
-  
-    resetPasswordToken: String,
-    resetPasswordExpire: Date,
+
 });
 
 // Password hash
@@ -85,3 +86,4 @@ userSchema.methods.getResetPasswordToken = function (): string {
 
 const UserModel: Model<IUser> = mongoose.model<IUser>('User',userSchema);
 export default UserModel;
+

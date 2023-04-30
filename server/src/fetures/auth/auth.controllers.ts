@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import crypto from 'crypto';
-import cloudinary from 'cloudinary';
+import cloudinary, { UploadApiResponse } from 'cloudinary';
 import HTTP_STATUS from 'http-status-codes';
 import catchAsyncHandler from '../../shared/middleware/catchAsyncError';
-import { IUser, RegisterUserRequest, LoginUserRequest } from './auth.interfaces';
+import { IUser, RegisterUserRequest, LoginUserRequest, AuthRequest } from './auth.interfaces';
 import UserModel from './auth.models';
 import sendToken from '../../shared/utils/jwtToken';
 import ErrorHandler from '../../shared/global/errorHandler'
@@ -11,16 +11,16 @@ import sendEmail from '../../shared/utils/sendEmail';
 
 
 
-
 class UserController {
 
-  // Register User
+  //👉 Register User
   public registerUser =  catchAsyncHandler(async(req: RegisterUserRequest, res: Response, next: NextFunction): Promise<void> => {
-    // const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-    //     folder: "avatars",
-    //     width: 150,
-    //     crop: "scale",
-    //   });
+    const myCloud: UploadApiResponse = await cloudinary.v2.uploader.upload(req.body.avatar, {
+      folder: "avatars",
+      width: 150,
+      crop: "scale",
+    });
+
 
       const { name, email, password } = req.body;
 
@@ -29,15 +29,15 @@ class UserController {
         email,
         password,
         avatar: {
-            public_id: 'desk-g67372d0a5_1920_uxd0xt',
-            url: 'https://res.cloudinary.com/suberiq/image/upload/v1682590677/desk-g67372d0a5_1920_uxd0xt.jpg'
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url
         }
       });
 
-      sendToken(user, HTTP_STATUS.OK, res);
+      sendToken(user, HTTP_STATUS.CREATED, res);
   });
 
-  // Login User
+  //👉 Login User
 
   public loginUser = catchAsyncHandler(async (req: LoginUserRequest,res: Response,next: NextFunction) => {
      const { email , password } = req.body;
@@ -63,7 +63,7 @@ class UserController {
 
   });
 
-  // Logout User
+  //👉 Logout User
 
   public logoutUser = catchAsyncHandler(async (req: Request, res: Response, next: NextFunction) => {
       res.cookie('token',null,{
@@ -76,11 +76,11 @@ class UserController {
       })
   });
 
-  // Forgot Password
+  //👉 Forgot Password
 
  public forgotPassword = catchAsyncHandler(async (req: Request, res: Response, next: NextFunction) => {
 
-    const user: IUser =  await UserModel.findOne({ email: req.body.email });
+    const user: IUser =  await UserModel.findOne<IUser>({ email: req.body.email });
 
     if(!user){
       return next(new ErrorHandler('User not found!',HTTP_STATUS.NOT_FOUND));
@@ -120,13 +120,15 @@ class UserController {
 
  });
 
-//  reset Password
+// 👉 reset Password
 
 public resetPassword = catchAsyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+
+  
   // creating token hash
   const resetPasswordToken = crypto.createHash("sha256").update(req.params.token).digest("hex");
 
-  const user:IUser = await UserModel.findOne({
+  const user:IUser = await UserModel.findOne<IUser>({
     resetPasswordToken,
     resetPasswordExpire: { $gt: Date.now() }
   });
@@ -146,6 +148,153 @@ public resetPassword = catchAsyncHandler(async (req: Request, res: Response, nex
   await user.save();
 
   sendToken(user,HTTP_STATUS.OK,res);
+
+});
+
+// 👉 Get User Details
+
+public getUserDetails = catchAsyncHandler(async (req: AuthRequest, res: Response, next: NextFunction) => {
+  const user: IUser | null = await UserModel.findById<IUser>(req.user.id);
+  res.status(HTTP_STATUS.OK).json({
+    success: true,
+    user
+  });
+
+});
+
+
+// 👉 Update User Password
+
+public updateUserPassword = catchAsyncHandler(async(req: AuthRequest, res: Response, next: NextFunction) => {
+  const user = await UserModel.findById<IUser>(req.user.id).select('+password') as IUser;
+  const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+
+  if(!isPasswordMatched){
+    return next(new ErrorHandler('Old Password is incorrect',HTTP_STATUS.NOT_FOUND));
+  }
+
+  if(req.body.newPassword !== req.body.confirmPassword){
+    return next(
+      new ErrorHandler('newPassword and confirmPassword does not match!',HTTP_STATUS.BAD_REQUEST)
+    );
+  }
+ 
+  user.password = req.body.newPassword;
+  await user.save();
+
+  sendToken(user,HTTP_STATUS.OK,res);
+
+});
+
+// 👉 Update User Profile
+public updateUserProfile = catchAsyncHandler(async (req: AuthRequest, res: Response, next: NextFunction) => {
+
+  const newUserData: Partial<IUser> = {
+    name: req.body.name,
+    email: req.body.email
+  };
+
+  // we will add cloudinary 
+  if(req.body.avatar !== ''){
+    const user = await UserModel.findById<IUser>(req.user.id);
+
+    const imageId = user.avatar.public_id;
+    await cloudinary.v2.uploader.destroy(imageId);
+    const myCloud: UploadApiResponse = await cloudinary.v2.uploader.upload(req.body.avatar, {
+      folder: 'avatars',
+      width: 150,
+      crop: 'scale'
+    });
+    newUserData.avatar = {
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url
+    }
+  }
+
+
+  await UserModel.findByIdAndUpdate<IUser>(req.user.id,newUserData,{
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(HTTP_STATUS.OK).json({
+    success: true,
+    message: 'Update Successfully...'
+  })
+
+});
+
+
+// 👉 Get all users(admin)
+
+public getAllUser = catchAsyncHandler(async (req: Request,res: Response,next: NextFunction) => {
+  const users = await UserModel.find<IUser>();
+
+  res.status(200).json({
+    sucess: true,
+    users
+  });
+});
+ 
+// 👉 Get Signle User(admin)
+
+public getSingleUser = catchAsyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  const user = await UserModel.findById<IUser>(req.params.id);
+
+  if(!user){
+    return next(new ErrorHandler(`User does not exist with Id: ${req.params.id}`,HTTP_STATUS.NOT_FOUND));
+  }
+
+  res.status(HTTP_STATUS.OK).json({
+    success: true,
+    user
+  });
+
+});
+
+// 👉 Update User Role(admin)
+
+public updateUserRole = catchAsyncHandler(async (req: Request,res: Response,next: NextFunction) => {
+   const newUserData: Partial<IUser> = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role
+   }
+
+   await UserModel.findByIdAndUpdate<IUser>(req.params.id,newUserData,{
+    new: true,
+    runValidators: true,
+    useFindAndModify: false
+   });
+
+   res.status(HTTP_STATUS.OK).json({
+    success: true
+   })
+
+});
+
+//👉 Delete User(admin)
+
+public deleteUser = catchAsyncHandler(async(req: Request, res: Response, next: NextFunction) => {
+  const user: IUser | null = await UserModel.findById(req.params.id);
+  
+
+  if(!user){
+    return next(new ErrorHandler(`User does not exist with Id: ${req.params.id}`,HTTP_STATUS.NOT_FOUND))
+  }
+  
+  const imageId = user.avatar.public_id;
+
+  await cloudinary.v2.uploader.destroy(imageId);
+
+  await UserModel.deleteOne({_id: user._id});
+
+  res.status(HTTP_STATUS.OK).json({
+    success: true,
+    message: 'User Deleted Successfully...'
+  })
+
 
 })
 
