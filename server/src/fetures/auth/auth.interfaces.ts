@@ -1,6 +1,5 @@
 import { Document } from 'mongoose';
 import { Request } from 'express';
-
 export interface IUser extends Document{
     name: string;
     email: string;
@@ -22,6 +21,7 @@ export interface IUser extends Document{
 
 
 export interface RegisterUserRequest extends Request {
+    [x: string]: any;
     body: {
         name: string;
         email: string;
@@ -43,4 +43,6 @@ export interface AuthRequest extends Request {
 };
 
 
+
+  
 

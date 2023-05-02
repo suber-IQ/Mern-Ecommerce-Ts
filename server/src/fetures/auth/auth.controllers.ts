@@ -15,7 +15,11 @@ class UserController {
 
   //👉 Register User
   public registerUser =  catchAsyncHandler(async(req: RegisterUserRequest, res: Response, next: NextFunction): Promise<void> => {
-    const myCloud: UploadApiResponse = await cloudinary.v2.uploader.upload(req.body.avatar, {
+    if(!req.body.avatar){
+       return next(new ErrorHandler('Please provide an image file',HTTP_STATUS.BAD_REQUEST));
+    }
+ 
+    const {secure_url,public_id}: UploadApiResponse = await cloudinary.v2.uploader.upload(req.body.avatar, {
       folder: "avatars",
       width: 150,
       crop: "scale",
@@ -29,8 +33,8 @@ class UserController {
         email,
         password,
         avatar: {
-            public_id: myCloud.public_id,
-            url: myCloud.secure_url
+            public_id,
+            url: secure_url,
         }
       });
 
@@ -296,7 +300,7 @@ public deleteUser = catchAsyncHandler(async(req: Request, res: Response, next: N
   })
 
 
-})
+});
 
 
 }

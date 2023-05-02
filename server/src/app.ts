@@ -1,15 +1,18 @@
+
 import express, { Express } from 'express';
 import { EcommerceServer } from './serverSetup';
 import { config } from './config/config';
 import databaseSetup from './config/databaseSetup';
 
 class Application{
-  public initialize(): void{
+  public server: EcommerceServer;
+
+  public async initialize(): Promise<void>{
     this.loadConfig();
-    databaseSetup();
+    await databaseSetup();
     const app: Express = express();
-    const server: EcommerceServer = new EcommerceServer(app);
-    server.start();
+    this.server = new EcommerceServer(app);
+    await this.server.start();
   }
 
   private loadConfig(): void {
@@ -20,4 +23,13 @@ class Application{
 }
 
 const application: Application = new Application();
+
+
+process.on('uncaughtException', (err) => {
+  console.log(`Error: ${err.message}`);
+  console.log(`Shutting down the server due to Uncaught Exception`);
+  process.exit(1);
+});
+
 application.initialize();
+
