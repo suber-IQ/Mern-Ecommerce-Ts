@@ -28,12 +28,12 @@ export interface IProduct extends Document{
 
 
 // Define the type for the request body
-interface ICreateProductRequestBody extends IProduct {
+export interface ICreateProductRequestBody extends IProduct {
     images: string[] | string;
   }
   
   // Define the type for the authenticated user in the request
-  interface IAuthenticatedUser {
+ export interface IAuthenticatedUser {
     id: string;
     name: string;
     email: string;
@@ -67,4 +67,18 @@ export interface ResponseData {
   productsCount: number;
   resultPerPage: number;
   filteredProductsCount: number;
+}
+
+
+// Define the type for the request parameters like id
+export interface IRequesParams extends Request {
+  id: string;
+}
+
+// create Reveiws interface
+export interface Review extends Request{
+  user: IAuthenticatedUser
+  rating: number;
+  comment: string;
+  productId: string;
 }

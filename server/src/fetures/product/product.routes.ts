@@ -13,7 +13,9 @@ class ProductRoutes{
     public routes(): Router{
 
         this.router.get('/products',this.ProductController.getAllProducts)
-       
+        this.router.get('/product/:id',this.ProductController.getProductDetails);
+        this.router.put('/product/review',AuthController.isAuthenticateUser, this.ProductController.createProductReview);
+        this.router.route('/product/reviews').get(this.ProductController.getProductReviews).delete(AuthController.isAuthenticateUser,this.ProductController.deleteReview);
         this.somePrivateRoutes();
 
         return this.router;
@@ -22,7 +24,11 @@ class ProductRoutes{
     private somePrivateRoutes(): void {
 
         // 👉 Products Routes Admin
+        this.router.get('/admin/products', AuthController.isAuthenticateUser,AuthController.authorizeRoles('admin'),this.ProductController.getAdminProducts)
         this.router.post('/admin/product/new',AuthController.isAuthenticateUser,AuthController.authorizeRoles('admin'),this.ProductController.createProduct);     
+        // this.router.route('/admin/product/:id',AuthController.isAuthenticateUser,AuthController.authorizeRoles('admin'),this.ProductController.updateProduct);     
+        this.router.route('/admin/product/:id').all(AuthController.isAuthenticateUser,AuthController.authorizeRoles("admin")).put(this.ProductController.updateProduct).delete(this.ProductController.deleteProduct);
+
     }
     
 }
