@@ -22,7 +22,6 @@ class ProductRoutes{
     }
 
     private somePrivateRoutes(): void {
-
         // 👉 Products Routes Admin
         this.router.get('/admin/products', AuthController.isAuthenticateUser,AuthController.authorizeRoles('admin'),this.ProductController.getAdminProducts)
         this.router.post('/admin/product/new',AuthController.isAuthenticateUser,AuthController.authorizeRoles('admin'),this.ProductController.createProduct);     

@@ -186,6 +186,7 @@ public updateUserPassword = catchAsyncHandler(async(req: AuthRequest, res: Respo
   user.password = req.body.newPassword;
   await user.save();
 
+
   sendToken(user,HTTP_STATUS.OK,res);
 
 });
@@ -224,7 +225,7 @@ public updateUserProfile = catchAsyncHandler(async (req: AuthRequest, res: Respo
 
   res.status(HTTP_STATUS.OK).json({
     success: true,
-    message: 'Update Successfully...'
+    message: 'Update User Profile Successfully...'
   })
 
 });
@@ -273,7 +274,8 @@ public updateUserRole = catchAsyncHandler(async (req: Request,res: Response,next
    });
 
    res.status(HTTP_STATUS.OK).json({
-    success: true
+    success: true,
+    message: "Update User Role Successfully..."
    })
 
 });

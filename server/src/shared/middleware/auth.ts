@@ -18,6 +18,7 @@ class AuthController{
         }
         const decodeData = await Jwt.verify(token, config.JWT_SECRET) as {id: string};
         req.user = await UserModel.findById(decodeData.id) as IUser;
+        
 
         next();
     });

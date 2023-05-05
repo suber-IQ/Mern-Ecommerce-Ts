@@ -21,6 +21,8 @@ class Config{
     public SMPT_SERVICE: string | undefined;
     public SMPT_MAIL: string | undefined;
     public SMPT_PASSWORD: string | undefined;
+    public STRIPE_SECRET_KEY: string | undefined;
+    public STRIPE_API_KEY: string | undefined;
 
     private readonly DEFAULT_DATABASE_URL = 'mongodb://localhost:27017/EcommerceApp'
     private readonly DEFAULT_NODE_ENV = 'development';
@@ -37,6 +39,8 @@ class Config{
     private readonly DEFAULT_SMPT_SERVICE = ''
     private readonly DEFAULT_SMPT_MAIL = ''
     private readonly DEFAULT_SMPT_PASSWORD = ''
+    private readonly DEFAULT_STRIPE_SECRET_KEY = ''
+    private readonly DEFAULT_STRIPE_API_KEY = ''
 
     constructor(){
         this.DATABASE_URL = process.env.DATABASE_URL || this.DEFAULT_DATABASE_URL;
@@ -54,6 +58,8 @@ class Config{
         this.SMPT_SERVICE = process.env.SMPT_SERVICE || this.DEFAULT_SMPT_SERVICE;
         this.SMPT_MAIL = process.env.SMPT_MAIL || this.DEFAULT_SMPT_MAIL;
         this.SMPT_PASSWORD = process.env.SMPT_PASSWORD || this.DEFAULT_SMPT_PASSWORD;
+        this.STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || this.DEFAULT_STRIPE_SECRET_KEY;
+        this.STRIPE_API_KEY = process.env.STRIPE_API_KEY || this.DEFAULT_STRIPE_API_KEY
     }
 
     public validateConfig(): void {

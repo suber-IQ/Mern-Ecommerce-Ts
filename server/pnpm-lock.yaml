@@ -20,6 +20,7 @@ specifiers:
   mongoose: ^7.0.5
   nodemailer: ^6.9.1
   nodemon: ^2.0.22
+  stripe: ^12.4.0
   ts-node-dev: ^2.0.0
   typescript: ^5.0.4
   validator: ^13.9.0
@@ -38,6 +39,7 @@ dependencies:
   jsonwebtoken: 9.0.0
   mongoose: 7.0.5
   nodemailer: 6.9.1
+  stripe: 12.4.0
   validator: 13.9.0
 
 devDependencies:
@@ -1518,6 +1520,14 @@ packages:
     resolution: {integrity: sha512-4gB8na07fecVVkOI6Rs4e7T6NOTki5EmL7TUduTs6bu3EdnSycntVJ4re8kgZA+wx9IueI2Y11bfbgwtzuE0KQ==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /stripe/12.4.0:
+    resolution: {integrity: sha512-QjZRzKi3wf8TsuJf/fd6/ejfPgwNptDIzFogRWaRzP3oMJnSD73I2YxR0Eje5zfrU8FmddYWZYawoUejqN+o1w==}
+    engines: {node: '>=12.*'}
+    dependencies:
+      '@types/node': 18.16.1
+      qs: 6.11.0
+    dev: false
 
   /supports-color/5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
