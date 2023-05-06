@@ -1,6 +1,6 @@
-import mongoose,{ Document,Model,Schema} from "mongoose";
-import { IUser } from "../auth/auth.interfaces";
-import { Request } from "express";
+import { Document} from 'mongoose';
+import { IUser } from '../auth/auth.interfaces';
+import { Request } from 'express';
 
 export interface IImage {
     public_id: string;
@@ -12,39 +12,36 @@ export interface IProduct extends Document{
     description: string;
     price: number;
     ratings: number;
-    images: IImage[] | string[] | string;
+    images: IImage[];
     category: string;
     Stock: number;
     numOfReviews: number;
-    reviews: { 
-        user: IUser["_id"];
+    reviews: {
+        user: IUser['_id'];
         name: string;
         rating: number;
         comment:string;
     }[];
-    user: IUser["_id"];
+    user: IUser['_id'];
     createdAt: Date;
 }
 
 
-// Define the type for the request body
-export interface ICreateProductRequestBody extends IProduct {
-    images: string[] | string;
-  }
-  
+
   // Define the type for the authenticated user in the request
  export interface IAuthenticatedUser {
     id: string;
     name: string;
     email: string;
   }
-  
+
   // Define the type for the request with the authenticated user
  export interface ICreateProductRequest extends Request {
-    body: ICreateProductRequestBody & { user: string };
-    user: IAuthenticatedUser;
+    user?: {
+      id: string;
+    }
   }
-  
+
   // Define the type for the product created
  export interface IProductCreated {
     success: true;
@@ -59,7 +56,7 @@ export interface ICreateProductRequestBody extends IProduct {
  export interface QueryString {
     [key: string]: string;
   }
-  
+
 // define types for the response data
 export interface ResponseData {
   success: boolean;
@@ -76,9 +73,13 @@ export interface IRequesParams extends Request {
 }
 
 // create Reveiws interface
-export interface Review extends Request{
-  user: IAuthenticatedUser
-  rating: number;
-  comment: string;
-  productId: string;
+export interface ReviewRequest extends Request {
+  user?: {
+      id: string;
+      name: string;
+  };
+  productId?: string;
+  rating?: number;
+  comment?: string;
 }
+

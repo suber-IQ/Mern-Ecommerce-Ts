@@ -16,16 +16,16 @@ const sendEmail = async (options: EmailOptions): Promise<void> => {
           user: config.SMPT_MAIL,
           pass: config.SMPT_PASSWORD,
         },
-    })
+    });
 
     const mailOptions = {
         from: config.SMPT_MAIL,
         to: options.email,
         subject: options.subject,
         text: options.message,
-    }
+    };
 
     await transporter.sendMail(mailOptions);
-} 
+};
 
 export default sendEmail;

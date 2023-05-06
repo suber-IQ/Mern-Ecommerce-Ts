@@ -7,9 +7,11 @@ interface ErrorResponse {
 }
 
 export default function errorHandler(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   err: any,
   _req: Request,
   res: Response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _next: NextFunction
 ) {
   err.statusCode = err.statusCode || 500;
@@ -29,14 +31,14 @@ export default function errorHandler(
 
   // Wrong JWT error
   if (err.name === 'JsonWebTokenError') {
-    const message = `Json Web Token is invalid, Try again `;
+    const message = 'Json Web Token is invalid, Try again ';
     err = new ErrorHandler(message,400);
 
   }
 
   // JWT EXPIRE error
   if (err.name === 'TokenExpiredError') {
-    const message = `Json Web Token is Expired, Try again `;
+    const message = 'Json Web Token is Expired, Try again ';
     err = new ErrorHandler(message,400);
 
   }

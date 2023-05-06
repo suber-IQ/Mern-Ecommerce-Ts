@@ -1,4 +1,4 @@
-import express, { Router } from 'express';
+import {Router }from 'express';
 import AuthController from '../../shared/middleware/auth';
 import { PaymentController } from './payment.controllers';
 
@@ -8,18 +8,18 @@ class PaymentRoutes {
     private PaymentController = new PaymentController();
 
     constructor(){
-        this.router = express.Router();
+        this.router = Router();
     }
 
 
     public routes(): Router{
         this.somePrivateRoutes();
-      return this.router;   
+      return this.router;
     }
 
     private somePrivateRoutes(): void {
-      this.router.post('/payment/process',AuthController.isAuthenticateUser,this.PaymentController.processPayment)
-      this.router.get('/stripeapikey',AuthController.isAuthenticateUser,this.PaymentController.sendStripeApiKey)
+      this.router.post('/payment/process',AuthController.isAuthenticateUser,this.PaymentController.processPayment);
+      this.router.get('/stripeapikey',AuthController.isAuthenticateUser,this.PaymentController.sendStripeApiKey);
     }
 }
 

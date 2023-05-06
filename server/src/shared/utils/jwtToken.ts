@@ -19,6 +19,6 @@ const sendToken = (user: IUser,statusCode: number, res: Response)=> {
         user,
         token
     });
-}
+};
 
 export default sendToken;

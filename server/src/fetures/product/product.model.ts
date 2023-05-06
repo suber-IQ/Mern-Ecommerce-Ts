@@ -1,5 +1,5 @@
-import mongoose, { Model, Schema } from "mongoose";
-import { IProduct } from "./product.interface";
+import mongoose, { Model, Schema } from 'mongoose';
+import { IProduct } from './product.interface';
 
 
 

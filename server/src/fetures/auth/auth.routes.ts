@@ -32,11 +32,11 @@ class AuthRoutes{
         // 👉 Admin User update user
 
          this.router.get('/admin/users',AuthController.isAuthenticateUser,AuthController.authorizeRoles('admin'),this.UserController.getAllUser);
-         
-        this.router.route('/admin/user/:id').all(AuthController.isAuthenticateUser,AuthController.authorizeRoles("admin")).get(this.UserController.getSingleUser).put(this.UserController.updateUserRole).delete(this.UserController.deleteUser);
-          
+
+        this.router.route('/admin/user/:id').all(AuthController.isAuthenticateUser,AuthController.authorizeRoles('admin')).get(this.UserController.getSingleUser).put(this.UserController.updateUserRole).delete(this.UserController.deleteUser);
+
     }
-    
+
 }
 
 export const userRoutes: AuthRoutes = new AuthRoutes();

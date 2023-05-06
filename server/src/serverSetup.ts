@@ -3,12 +3,14 @@ import fileUpload from 'express-fileupload';
 import http from 'http';
 import path from 'path';
 import cors from 'cors';
+ import apiStats from 'swagger-stats';
 import HTTP_STATUS from 'http-status-codes';
-import bodyParser from 'body-parser'
+import bodyParser from 'body-parser';
 import applicationRoutes from './routes';
 import { config } from './config/config';
-import errorMiddleware from './shared/middleware/error'
+import errorMiddleware from './shared/middleware/error';
 import cookieParser from 'cookie-parser';
+
 
 
 const SERVER_PORT = config.PORT;
@@ -24,10 +26,11 @@ export class EcommerceServer{
         this.securityMiddleware(this.app);
         this.standarMiddleware(this.app);
         this.routeMiddleware(this.app);
+        this.apiMonitoring(this.app);
         this.globalErrorMiddleware(this.app);
         this.startServer(this.app);
     }
- 
+
     private securityMiddleware(app: Application): void{
         app.use(cors({
             origin: config.CLIENT_URL,
@@ -40,16 +43,25 @@ export class EcommerceServer{
 
     private standarMiddleware(app: Application): void{
         app.use(json({limit: '50mb'}));
-        app.use(bodyParser.urlencoded({extended: true}))
+        app.use(bodyParser.urlencoded({extended: true}));
         app.use(fileUpload());
         app.use(express.static(path.join(__dirname,'../client/build')));
     }
     private routeMiddleware(app: Application): void{
         applicationRoutes(app);
-        app.get("*",(req:Request,res) => {
-            res.sendFile(path.resolve(__dirname,'../client/build/index.html'))
-        });
+        app.get('*',(req:Request,res) => {
+          res.sendFile(path.resolve(__dirname,'../client/build/index.html'));
+      });
     }
+
+    private apiMonitoring(app: Application): void {
+      app.use(
+        apiStats.getMiddleware({
+          uriPath: '/api-monitoring'
+        })
+      );
+    }
+
     private globalErrorMiddleware(app: Application): void{
         app.all('*',(req:Request,res: Response) => {
             res.status(HTTP_STATUS.NOT_FOUND).json({
@@ -64,7 +76,7 @@ export class EcommerceServer{
             this.startHttpServer(httpServer);
           } catch (error) {
            console.log(error);
-           
+
           }
     }
 
@@ -72,9 +84,9 @@ export class EcommerceServer{
         console.log(`Server had Started with process ${process.pid}`);
         httpServer.listen(SERVER_PORT,() => {
             console.log(`Server running on port ${SERVER_PORT}`);
-            
-        })
+
+        });
     }
 
- 
+
 }

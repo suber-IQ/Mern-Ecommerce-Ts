@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
-import { IUser } from "../auth/auth.interfaces";
-import { IProduct } from "../product/product.interface";
+import { IUser } from '../auth/auth.interfaces';
+import { IProduct } from '../product/product.interface';
 
 
 interface IShippingInfo{
@@ -17,7 +17,7 @@ interface IOrderItem{
     price: number;
     quantity: number;
     image: string;
-    product: IProduct["_id"];
+    product: IProduct['_id'];
 }
 
 interface IPaymentInfo{
@@ -28,7 +28,7 @@ interface IPaymentInfo{
 export interface IOrder extends Document{
     shippingInfo: IShippingInfo;
     orderItems: IOrderItem[];
-    user: IUser["_id"];
+    user: IUser['_id'];
     paymentInfo: IPaymentInfo;
     paidAt: Date;
     itemsPrice: number;
@@ -59,7 +59,7 @@ export interface MYOrdersResponse{
     orders: IOrder[];
 }
 
-// all Order Response interface 
+// all Order Response interface
 export interface AllOrdersResponse{
     success: boolean;
     totalAmount: number;
@@ -68,7 +68,7 @@ export interface AllOrdersResponse{
 
 // update Order
 export interface OrderUpdateBody {
-    status: "Pending" | "Shipped" | "Delivered";
+    status: 'Pending' | 'Shipped' | 'Delivered';
   }
 
 

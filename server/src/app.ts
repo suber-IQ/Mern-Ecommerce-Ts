@@ -5,31 +5,62 @@ import { config } from './config/config';
 import databaseSetup from './config/databaseSetup';
 
 class Application{
-  public server: EcommerceServer;
 
-  public async initialize(): Promise<void>{
+  public async initialize(){
     this.loadConfig();
     await databaseSetup();
     const app: Express = express();
-    this.server = new EcommerceServer(app);
-    await this.server.start();
+    const server: EcommerceServer = new EcommerceServer(app);
+    server.start();
   }
 
   private loadConfig(): void {
     config.validateConfig();
     config.cloudinaryFunc();
   }
- 
+
+  private static handleExit(): void {
+    process.on('uncaughtException', (error: Error) => {
+      console.log(`There was an uncaught error: ${error}`);
+      Application.shutDownProperly(1);
+    });
+
+    process.on('unhandleRejection', (reason: Error) => {
+      console.log(`Unhandled rejection at promise: ${reason}`);
+      Application.shutDownProperly(2);
+    });
+
+    process.on('SIGTERM', () => {
+      console.log('Caught SIGTERM');
+      Application.shutDownProperly(2);
+    });
+
+    process.on('SIGINT', () => {
+      console.log('Caught SIGINT');
+      Application.shutDownProperly(2);
+    });
+
+    process.on('exit', () => {
+      console.log('Exiting');
+    });
+  }
+  private static shutDownProperly(exitCode: number): void {
+    Promise.resolve()
+      .then(() => {
+        console.log('Shutdown complete');
+        process.exit(exitCode);
+      })
+      .catch((error) => {
+        console.log(`Error during shutdown: ${error}`);
+        process.exit(1);
+      });
+  }
+
 }
 
 const application: Application = new Application();
 
 
-process.on('uncaughtException', (err) => {
-  console.log(`Error: ${err.message}`);
-  console.log(`Shutting down the server due to Uncaught Exception`);
-  process.exit(1);
-});
 
 application.initialize();
 

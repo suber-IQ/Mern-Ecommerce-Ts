@@ -12,7 +12,7 @@ export interface IUser extends Document{
     createdAt: Date;
     resetPasswordToken?: string;
     resetPasswordExpire?: Date;
-   
+
     getJWTToken(): string;
     isModified(field: string): boolean;
     comparePassword(password: string) : Promise<boolean>
@@ -21,6 +21,7 @@ export interface IUser extends Document{
 
 
 export interface RegisterUserRequest extends Request {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [x: string]: any;
     body: {
         name: string;
@@ -44,5 +45,5 @@ export interface AuthRequest extends Request {
 
 
 
-  
+
 

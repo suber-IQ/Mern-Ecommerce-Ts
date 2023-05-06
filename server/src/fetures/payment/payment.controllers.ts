@@ -1,8 +1,8 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
 import Stripe from 'stripe';
-import catchAsyncHandler from "../../shared/middleware/catchAsyncError";
-import { config } from "../../config/config";
+import catchAsyncHandler from '../../shared/middleware/catchAsyncError';
+import { config } from '../../config/config';
 
 
 interface IPayment {
@@ -12,18 +12,20 @@ interface IPayment {
       company: string;
     };
   }
-  
+  if(!config.STRIPE_SECRET_KEY){
+    throw new Error('JWT secret key not found');
+  }
   const stripe = new Stripe(config.STRIPE_SECRET_KEY, {
     apiVersion: '2022-11-15'
   });
 
 class PaymentController {
-    public processPayment = catchAsyncHandler(async (req: Request,res: Response,next: NextFunction) => {
+    public processPayment = catchAsyncHandler(async (req: Request,res: Response) => {
         const paymentDetails: IPayment = {
            amount: req.body.amount,
-           currency: "inr",
+           currency: 'inr',
            metadata: {
-            company: "Ecommerce"
+            company: 'Ecommerce'
            }
         };
 
@@ -32,14 +34,14 @@ class PaymentController {
         res.status(HTTP_STATUS.OK).json({
             success: true,
             client_secret: paymentIntent.client_secret
-        })
+        });
     });
 
-    public sendStripeApiKey = catchAsyncHandler(async (req: Request, res: Response,next: NextFunction) => {
+    public sendStripeApiKey = catchAsyncHandler(async (req: Request, res: Response) => {
         res.status(HTTP_STATUS.OK).json({
             stripeApiKey: config.STRIPE_API_KEY
-        })
-    })
+        });
+    });
 }
 
 

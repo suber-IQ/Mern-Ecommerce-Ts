@@ -1,7 +1,7 @@
-import mongoose, { Model, Schema } from "mongoose";
-import { IOrder } from "./order.interface";
-import ProductModel from "../product/product.model";
-import { IProduct } from "../product/product.interface";
+import mongoose, { Model, Schema } from 'mongoose';
+import { IOrder } from './order.interface';
+import ProductModel from '../product/product.model';
+import { IProduct } from '../product/product.interface';
 
 
 const orderSchema: Schema<IOrder>  = new mongoose.Schema({
@@ -52,14 +52,14 @@ const orderSchema: Schema<IOrder>  = new mongoose.Schema({
             },
             product: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "Product",
+                ref: 'Product',
                 required: true,
             },
         },
     ],
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: 'User',
         required: true,
     },
     paymentInfo: {
@@ -99,7 +99,7 @@ const orderSchema: Schema<IOrder>  = new mongoose.Schema({
     orderStatus: {
         type: String,
         required: true,
-        default: "Processing"
+        default: 'Processing'
     },
     deliveredAt: Date,
     createdAt: {
@@ -108,14 +108,17 @@ const orderSchema: Schema<IOrder>  = new mongoose.Schema({
     }
 });
 
-export const updateStock = async (id, quantity) => {
-    const product: IProduct = await ProductModel.findById(id);
-  
-    product.Stock -= quantity;
-  
-    await product.save({ validateBeforeSave: false });
-  }
-  
+export const updateStock = async (id: string, quantity: number) => {
+    const product: IProduct | null = await ProductModel.findById(id);
+
+    if(product){
+      product.Stock -= quantity;
+
+      await product.save({ validateBeforeSave: false });
+    }
+
+  };
+
 
 const OrderModel: Model<IOrder> = mongoose.model('Order',orderSchema);
 
