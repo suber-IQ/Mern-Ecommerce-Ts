@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import CustomButton from "../../../components/Button/CustomButton"
 import CustomHeading from "../../../components/Heading/CustomHeading"
 import CustomInput from "../../../components/Input/CustomInput"
@@ -19,15 +19,17 @@ import {
   FORM_SHADOW,
   FORM_ROUNDED,
 } from './login.constant';
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { toast } from 'react-toastify';
-import { login } from "./login.redux.action.thunk"
+import {toast}  from 'react-toastify';
 import { AnyAction } from "@reduxjs/toolkit"
+import { loginUser } from "./login.action"
+import { RootState } from "../../../store"
+import { clearErrors } from "./login.reducer"
 
-// name ,email, password, avatar
 const Login = () => {
   const dispatch: ThunkDispatch<any, any, AnyAction> = useDispatch();
+  const { error, isAuthenticated } = useSelector((state: RootState) => state.login);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -41,22 +43,26 @@ const Login = () => {
       [name]: value,
     }));
   };
+
+  useEffect(() => {
+     if(error){
+      console.log(error);
+      
+       toast.error("Login failed: " + String(error));
+       return () => {
+        dispatch(clearErrors());
+       };
+     }
+     if(isAuthenticated){
+       navigate("/");
+     }
+  },[navigate,isAuthenticated,dispatch,error])
  
 
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(login(formData))
-      .unwrap()
-      .then(() => {
-        // Handle successful login
-        toast.success('Login successful! Token:');
-        navigate('/');
-      })
-      .catch((error) => {
-        // Handle login error
-        toast.error('Login error:', error.message);
-      });
+    dispatch(loginUser(formData));
   };
 
 
@@ -65,6 +71,7 @@ const Login = () => {
   return (
     <main className={`max-w-md mt-8 mx-auto py-4 px-8 ${FORM_BG_COLOR} ${FORM_SHADOW} ${FORM_ROUNDED}`}>
     <CustomHeading children="Login" className="mb-4" level={1} />
+    {error && <p className="text-red-800">Error: {error}</p>}
     <form onSubmit={handleSubmit}>
       <CustomInput
         onChange={handleInputChange}

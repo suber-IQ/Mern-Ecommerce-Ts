@@ -14,5 +14,3 @@ export const FORM_ROUNDED = "rounded-lg";
 
 export const LOGIN_SLICE_NAME = "login"; 
 
-// Define the login Api endpoint
-export const LOGIN_API_ENDPOINT = "http://localhost:8000/api/v1/login";

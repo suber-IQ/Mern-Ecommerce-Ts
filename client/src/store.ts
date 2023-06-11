@@ -1,17 +1,26 @@
-import { configureStore } from '@reduxjs/toolkit';
-import thunkMiddleware from 'redux-thunk';
+import {  Action, configureStore } from '@reduxjs/toolkit';
+import thunk, { ThunkAction } from 'redux-thunk';
 import { combineReducers } from '@reduxjs/toolkit';
-import loginReducer from './features/Authencation/Login/login.slice';
+import loginReducer from './features/Authencation/Login/login.reducer';
 
+// Define the login Api endpoint
+export const API_ENDPOINT = "http://localhost:8000/api/v1";
 
 const rootReducer = combineReducers({
   login: loginReducer,
 });
 
+// Check if the DevTools extension is available
+
+
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(thunkMiddleware),
+    getDefaultMiddleware().concat(thunk),
+    devTools: true,
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType,RootState,unknown,Action<string>>;
 
 export default store;

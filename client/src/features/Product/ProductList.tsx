@@ -10,9 +10,8 @@ const ProductCard = () => {
       <div className="flex space-x-2 space-y-2 flex-wrap justify-envenly">
      {
       products && products.map((item) => (
-           <CustomRouteLink to="/product/1">
+           <CustomRouteLink key={item.id} to="/product/1">
              <CustomCard
-            key={item.id}
             title={item.title}
             price={item.price}
             image={item.image}
