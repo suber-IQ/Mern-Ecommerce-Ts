@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { LoginState,LoginResponse, ErrorResponse } from "./login.interface";
+import { ErrorResponse, SignUpResponse, SignUpState } from "./signup.interface";
 
 
-const initialState: LoginState = {
+const initialState: SignUpState = {
   user: null,
   loading: false,
   error: null,
@@ -10,29 +10,23 @@ const initialState: LoginState = {
 }
 
 
-const loginSlice = createSlice({
+const signUpSlice = createSlice({
   name: 'login',
   initialState,
     reducers: {
-      loginRequest: (state) => {
+      signUpRequest: (state) => {
         state.loading = true;
         state.error = null;
         state.isAuthenticated = false;
       },
-      loginSuccess: (state,action: PayloadAction<LoginResponse>) => {
+      signUpSuccess: (state,action: PayloadAction<SignUpResponse>) => {
          state.loading = false;
          state.user = action.payload.user;
          state.isAuthenticated = true;
       },
-      loginFailure: (state,action: PayloadAction<ErrorResponse>) => {
+      signUpFailure: (state,action: PayloadAction<ErrorResponse>) => {
         state.loading = false;
         state.error = action.payload.message;
-        state.isAuthenticated = false;
-      },
-      logout: (state) => {
-        state.user = null;
-        state.loading = false;
-        state.error = null;
         state.isAuthenticated = false;
       },
       clearErrors: (state) => {
@@ -41,5 +35,5 @@ const loginSlice = createSlice({
     },
 });
 
-export const { loginRequest, loginSuccess, loginFailure, logout, clearErrors } = loginSlice.actions;
-export default loginSlice.reducer;
+export const { signUpRequest, signUpSuccess, signUpFailure, clearErrors } = signUpSlice.actions;
+export default signUpSlice.reducer;

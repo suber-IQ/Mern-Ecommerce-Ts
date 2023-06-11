@@ -2,7 +2,7 @@ import CustomButton from '../../components/Button/CustomButton';
 import CustomHeading from '../../components/Heading/CustomHeading';
 import CustomProductImageSlider from '../../components/ProductImageSlider/CustomProductImageSlider'
 import { GrLocation } from 'react-icons/gr';
-import ReviewByUser, { Review } from '../User/ReviewByUserList';
+import ReviewByUser, { Review } from '../Review/ReviewByUserList';
 import CustomRouteLink from '../../components/RouteLink/CustomRouteLink';
 
 const images : string[] = [

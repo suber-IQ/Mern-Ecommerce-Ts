@@ -11,10 +11,8 @@ import {
   DEFAULT_EMAIL_PLACEHOLDER,
   DEFAULT_PASSWORD_PLACEHOLDER,
   LOGIN_BUTTON_TEXT,
-  CREATE_ACCOUNT_TEXT,
   SIGNUP_LINK_TEXT,
   SIGNUP_ROUTE,
-  PRIMARY_TEXT_COLOR,
   FORM_BG_COLOR,
   FORM_SHADOW,
   FORM_ROUNDED,
@@ -26,10 +24,12 @@ import { AnyAction } from "@reduxjs/toolkit"
 import { loginUser } from "./login.action"
 import { RootState } from "../../../store"
 import { clearErrors } from "./login.reducer"
+import CustomLoader from "../../../components/Loading/CustomLoader"
+import { BsFillArrowUpRightCircleFill } from "react-icons/bs"
 
 const Login = () => {
   const dispatch: ThunkDispatch<any, any, AnyAction> = useDispatch();
-  const { error, isAuthenticated } = useSelector((state: RootState) => state.login);
+  const { error,loading, isAuthenticated } = useSelector((state: RootState) => state.login);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -45,18 +45,18 @@ const Login = () => {
   };
 
   useEffect(() => {
-     if(error){
+    if (error) {
       console.log(error);
-      
-       toast.error("Login failed: " + String(error));
-       return () => {
+
+      toast.error("Login failed: " + String(error));
+      return () => {
         dispatch(clearErrors());
-       };
-     }
-     if(isAuthenticated){
-       navigate("/");
-     }
-  },[navigate,isAuthenticated,dispatch,error])
+      };
+    }
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [navigate, isAuthenticated, dispatch, error]);
  
 
 
@@ -70,7 +70,15 @@ const Login = () => {
 
   return (
     <main className={`max-w-md mt-8 mx-auto py-4 px-8 ${FORM_BG_COLOR} ${FORM_SHADOW} ${FORM_ROUNDED}`}>
-    <CustomHeading children="Login" className="mb-4" level={1} />
+    <div className="flex items-center justify-between mb-4">
+    <CustomHeading children="Login"  level={1} />
+    <span className="flex items-center border-2 animate-pulse px-3 py-1 space-x-1">
+          <CustomRouteLink className="text-3xl font-medium" to={SIGNUP_ROUTE}>
+            {SIGNUP_LINK_TEXT} 
+          </CustomRouteLink>
+          <BsFillArrowUpRightCircleFill size="24" color="blue" />
+    </span>
+    </div>
     {error && <p className="text-red-800">Error: {error}</p>}
     <form onSubmit={handleSubmit}>
       <CustomInput
@@ -90,13 +98,16 @@ const Login = () => {
         placeholder={DEFAULT_PASSWORD_PLACEHOLDER}
       />
       <div className="flex items-center justify-between">
-        <CustomButton type="submit" children={LOGIN_BUTTON_TEXT} />
+      {
+  loading ? (<CustomLoader />) : (
+    <CustomButton type="submit" children={LOGIN_BUTTON_TEXT} />
+
+  )
+} 
         <span>
-          {CREATE_ACCOUNT_TEXT}{" "}
-          <CustomRouteLink className={PRIMARY_TEXT_COLOR} to={SIGNUP_ROUTE}>
-            {SIGNUP_LINK_TEXT}
-          </CustomRouteLink>
+        <CustomRouteLink className="text-blue-800 text-md" to={"/password/forgot"} children={"forgot Password ?"} />
         </span>
+        
       </div>
     </form>
   </main>
@@ -104,3 +115,11 @@ const Login = () => {
 }
 
 export default Login
+
+
+{/* <span>
+          {CREATE_ACCOUNT_TEXT}
+          <CustomRouteLink className={PRIMARY_TEXT_COLOR} to={SIGNUP_ROUTE}>
+            {SIGNUP_LINK_TEXT}
+          </CustomRouteLink>
+        </span> */}

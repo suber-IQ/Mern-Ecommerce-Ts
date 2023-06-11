@@ -1,4 +1,3 @@
-export const LOGIN_ROUTE = "/account/login";
 export const SIGNUP_ROUTE = "/account/signup";
 export const DEFAULT_EMAIL_LABEL = "Email:";
 export const DEFAULT_PASSWORD_LABEL = "Password:";

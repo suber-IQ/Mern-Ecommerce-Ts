@@ -8,6 +8,7 @@ import SignupPage from './pages/User/SignupPage';
 import CartPage from './pages/User/CartPage';
 import ProductListPage from './pages/User/ProductListPage';
 import ProductListItemPage from './pages/User/ProductListItemPage';
+import ForgotPasswordPage from './pages/User/ForgotPasswordPage';
 
 const App = () => {
   return (
@@ -17,10 +18,12 @@ const App = () => {
       </div>
       <Routes>
          <Route path='/' element={<Home />} />
+         {/* User */}
          <Route path='/account/signup' element={<SignupPage />} />
          <Route path='/account/login' element={<LoginPage />} />
-         <Route path='/cart' element={<CartPage />} />
+         <Route path='/password/forgot' element={<ForgotPasswordPage />} />
          {/* Product */}
+         <Route path='/cart' element={<CartPage />} />
          <Route path='/products' element={<ProductListPage />} />
          <Route path='/product/1' element={<ProductListItemPage />} />
       </Routes>
