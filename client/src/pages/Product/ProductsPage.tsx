@@ -1,6 +1,6 @@
 import ProductCard from "../../features/Product/ProductList";
 
-const ProductListPage = () => {
+const  ProductsPage = () => {
   return (
     <>
        <ProductCard />
@@ -9,4 +9,4 @@ const ProductListPage = () => {
   )
 }
 
-export default ProductListPage;
+export default  ProductsPage;

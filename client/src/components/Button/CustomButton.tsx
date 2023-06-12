@@ -6,9 +6,10 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const CustomButton: React.FC<ButtonProps> = ({ className, children, ...rest }) => {
+  const defaultButtonStyle = 'bg-blue-300 hover:bg-sky-400 font-medium py-2 px-4 rounded'
   return (
     <button
-      className={`bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-300 ${className}`}
+      className={`${className} ${defaultButtonStyle}`}
       {...rest}
     >
       {children}

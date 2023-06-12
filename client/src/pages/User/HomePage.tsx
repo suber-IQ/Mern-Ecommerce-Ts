@@ -4,7 +4,9 @@ import Banner from '../../layouts/Banner/Banner'
 const HomePage = () => {
   return (
       <>
-       <Banner />
+       <div className='-z-40'>
+        <Banner />
+        </div>
         <ProductCard />
       </>
   )

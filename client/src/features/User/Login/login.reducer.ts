@@ -29,12 +29,6 @@ const loginSlice = createSlice({
         state.error = action.payload.message;
         state.isAuthenticated = false;
       },
-      logout: (state) => {
-        state.user = null;
-        state.loading = false;
-        state.error = null;
-        state.isAuthenticated = false;
-      },
       clearErrors: (state) => {
         state.error = null;
         state.loading = false;
@@ -42,5 +36,6 @@ const loginSlice = createSlice({
     },
 });
 
-export const { loginRequest, loginSuccess, loginFailure, logout, clearErrors } = loginSlice.actions;
+export const { loginRequest, loginSuccess, loginFailure, clearErrors } = loginSlice.actions;
 export default loginSlice.reducer;
+

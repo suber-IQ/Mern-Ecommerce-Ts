@@ -33,12 +33,12 @@ const CartBlock: React.FC<CartBlockProps> = ({ title, price, quantity, image,onR
         </div>
       </div>
       <div className="flex items-center">
-      <CustomButton onClick={handleDecrement}children={"-"} className='bg-gray-300 rounded-l-md  hover:bg-inherit hover:bg-gray-200 text-slate-800 font-normal py-1 px-1 ml-2' />
+      <CustomButton onClick={handleDecrement}children={"-"} className='font-normal ml-2' />
         <span className="px-4">{itemQuantity}</span>
-      <CustomButton onClick={handleIncrement}children={"+"} className='bg-gray-300 rounded-r-md  hover:bg-inherit hover:bg-gray-200 text-slate-800 font-normal py-1 px-1 ml-2' />
+      <CustomButton onClick={handleIncrement}children={"+"} className='font-normal ml-2' />
 
       </div>
-      <CustomButton onClick={onRemove} children="Remove"className='bg-gray-300 rounded-sm hover:bg-inherit hover:bg-gray-200 text-slate-800 font-normal py-1 px-1 ml-2' />
+      <CustomButton onClick={onRemove} children="Remove" className='font-normal ml-2' />
     </div>
   );
 };

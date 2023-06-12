@@ -1,7 +1,7 @@
 import ProductListItem from "../../features/Product/ProductListItem"
 
 
-const ProductListItemPage = () => {
+const ProductDetailsPage = () => {
   return (
     <>
      <ProductListItem  />
@@ -9,4 +9,4 @@ const ProductListItemPage = () => {
   )
 }
 
-export default ProductListItemPage
+export default ProductDetailsPage

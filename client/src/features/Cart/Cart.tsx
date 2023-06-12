@@ -1,5 +1,6 @@
 import React from 'react';
 import CartBlock from '../../layouts/Cart/CartBlock';
+import CustomButton from '../../components/Button/CustomButton';
 
 interface CartItem {
   id: number;
@@ -31,9 +32,9 @@ const Cart: React.FC<CartProps> = ({ cartItems }) => {
             </div>
           </div>
           <div className="flex justify-end mt-4">
-            <button className="bg-yellow-500 text-white font-bold hover:bg-yellow-600 py-2 px-4 rounded-md">
+            <CustomButton className="bg-yellow-500 text-inherit text-white font-bold hover:bg-yellow-600 py-2 px-4 rounded-md">
               Proceed to Checkout
-            </button>
+            </CustomButton>
           </div>
         </div>
       ) : (

@@ -4,12 +4,14 @@ import { combineReducers } from '@reduxjs/toolkit';
 import loginReducer from './features/User/Login/login.reducer';
 import signupReducer from './features/User/Signup/signup.reducer';
 import forgotPasswordReducer from './features/User/ForgotPassword/forgot.password.reducer';
+import logoutReducer from './features/User/Logout/logout.reducer';
 
 // Define the login Api endpoint
 export const API_ENDPOINT = "http://localhost:8000/api/v1";
 
 const rootReducer = combineReducers({
   login: loginReducer,
+  logout: logoutReducer,
   signup: signupReducer,
   forgotPassword: forgotPasswordReducer
 
