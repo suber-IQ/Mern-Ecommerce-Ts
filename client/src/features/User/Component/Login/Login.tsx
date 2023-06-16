@@ -19,9 +19,9 @@ import {
 } from './login.constant';
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import {toast}  from 'react-toastify';
+import { toast } from 'react-toastify';
 import { AnyAction } from "@reduxjs/toolkit"
-import { loginUser } from "./login.action"
+import { loginUser } from "../../Actions/login.action"
 import { RootState } from "../../../store"
 import { clearErrors } from "./login.reducer"
 import CustomLoader from "../../../components/Loading/CustomLoader"
@@ -29,7 +29,7 @@ import { BsFillArrowUpRightCircleFill } from "react-icons/bs"
 
 const Login = () => {
   const dispatch: ThunkDispatch<any, any, AnyAction> = useDispatch();
-  const { error,loading, isAuthenticated } = useSelector((state: RootState) => state.login);
+  const { error, loading, isAuthenticated } = useSelector((state: RootState) => state.login);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -57,7 +57,7 @@ const Login = () => {
       navigate("/");
     }
   }, [navigate, isAuthenticated, dispatch, error]);
- 
+
 
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -70,47 +70,47 @@ const Login = () => {
 
   return (
     <main className={`max-w-md mt-8 mx-auto py-4 px-8 ${FORM_BG_COLOR} ${FORM_SHADOW} ${FORM_ROUNDED}`}>
-    <div className="flex items-center justify-between mb-4">
-    <CustomHeading children="Login"  level={1} />
-    <span className="flex items-center border-2 animate-pulse px-3 py-1 space-x-1">
+      <div className="flex items-center justify-between mb-4">
+        <CustomHeading children="Login" level={1} />
+        <span className="flex items-center border-2 animate-pulse px-3 py-1 space-x-1">
           <CustomRouteLink className="text-3xl font-medium" to={SIGNUP_ROUTE}>
-            {SIGNUP_LINK_TEXT} 
+            {SIGNUP_LINK_TEXT}
           </CustomRouteLink>
           <BsFillArrowUpRightCircleFill size="24" color="blue" />
-    </span>
-    </div>
-    {error && <p className="text-red-800">Error: {error}</p>}
-    <form onSubmit={handleSubmit}>
-      <CustomInput
-        onChange={handleInputChange}
-        value={formData.email}
-        type="email"
-        name="email"
-        label={DEFAULT_EMAIL_LABEL}
-        placeholder={DEFAULT_EMAIL_PLACEHOLDER}
-      />
-      <CustomInput
-        onChange={handleInputChange}
-        value={formData.password}
-        type="password"
-        name="password"
-        label={DEFAULT_PASSWORD_LABEL}
-        placeholder={DEFAULT_PASSWORD_PLACEHOLDER}
-      />
-      <div className="flex items-center justify-between">
-      {
-  loading ? (<CustomLoader />) : (
-    <CustomButton type="submit" children={LOGIN_BUTTON_TEXT} />
-
-  )
-} 
-        <span>
-        <CustomRouteLink className="text-blue-800 text-md" to={"/password/forgot"} children={"forgot Password ?"} />
         </span>
-        
       </div>
-    </form>
-  </main>
+      {error && <p className="text-red-800">Error: {error}</p>}
+      <form onSubmit={handleSubmit}>
+        <CustomInput
+          onChange={handleInputChange}
+          value={formData.email}
+          type="email"
+          name="email"
+          label={DEFAULT_EMAIL_LABEL}
+          placeholder={DEFAULT_EMAIL_PLACEHOLDER}
+        />
+        <CustomInput
+          onChange={handleInputChange}
+          value={formData.password}
+          type="password"
+          name="password"
+          label={DEFAULT_PASSWORD_LABEL}
+          placeholder={DEFAULT_PASSWORD_PLACEHOLDER}
+        />
+        <div className="flex items-center justify-between">
+          {
+            loading ? (<CustomLoader />) : (
+              <CustomButton type="submit" children={LOGIN_BUTTON_TEXT} />
+
+            )
+          }
+          <span>
+            <CustomRouteLink className="text-blue-800 text-md" to={"/password/forgot"} children={"forgot Password ?"} />
+          </span>
+
+        </div>
+      </form>
+    </main>
   )
 }
 

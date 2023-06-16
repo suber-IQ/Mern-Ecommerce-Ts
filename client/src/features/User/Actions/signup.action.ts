@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_ENDPOINT, AppThunk } from "../../../store";
-import { SignUpResponse, SignUpUserRequest } from "./signup.interface";
-import { signUpFailure, signUpRequest, signUpSuccess } from "./signup.reducer";
+import { SignUpResponse, SignUpUserRequest } from "../Component/Signup/signup.interface";
+import { signUpFailure, signUpRequest, signUpSuccess } from "../Component/Signup/signup.reducer";
 
 const signUpRoute = `${API_ENDPOINT}/register`
 

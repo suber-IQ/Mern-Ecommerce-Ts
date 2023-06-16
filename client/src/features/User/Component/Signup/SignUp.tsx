@@ -5,7 +5,7 @@ import CustomInput from "../../../components/Input/CustomInput"
 import CustomRouteLink from "../../../components/RouteLink/CustomRouteLink"
 import { toast } from "react-toastify"
 import { useDispatch, useSelector } from "react-redux"
-import { signUpUser } from "./signup.action"
+import { signUpUser } from "../../Actions/signup.action"
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit"
 import { clearErrors } from "./signup.reducer"
 import { RootState } from "../../../store"
@@ -85,13 +85,13 @@ const SignUp = () => {
     <main className="max-w-md mt-2 mx-auto py-4 px-8 bg-primary shadow-lg rounded-lg">
        <CustomHeading children={SIGNUP_HEADING} className="mb-4" level={1} />
         <form onSubmit={handleSubmit}>
-           <CustomInput onChange={handleInputChange} value={formData.name}  type="text" name={SIGNUP_NAME_NAME} label={SIGNUP_NAME_LABLE} placeholder={SIGNUP_PLACEHOLDER_NAME} />
-           <CustomInput onChange={handleInputChange} value={formData.email}  type="email" name={SIGNUP_EMAIL_NAME} label={SIGNUP_EMAIL_LABLE} placeholder={SIGNUP_PLACEHOLDER_EMAIL} />
-           <CustomInput onChange={handleInputChange} value={formData.password} type="password" name={SIGNUP_PASSWORD_NAME} label={SIGNUP_PASSWORD_LABLE} placeholder={SIGNUP_PASSWORD_LABLE} />
+           <CustomInput onChange={handleInputChange} required value={formData.name}  type="text" name={SIGNUP_NAME_NAME} label={SIGNUP_NAME_LABLE} placeholder={SIGNUP_PLACEHOLDER_NAME} />
+           <CustomInput onChange={handleInputChange} required value={formData.email}  type="email" name={SIGNUP_EMAIL_NAME} label={SIGNUP_EMAIL_LABLE} placeholder={SIGNUP_PLACEHOLDER_EMAIL} />
+           <CustomInput onChange={handleInputChange} required value={formData.password} type="password" name={SIGNUP_PASSWORD_NAME} label={SIGNUP_PASSWORD_LABLE} placeholder={SIGNUP_PASSWORD_LABLE} />
 
-           <CustomInput onChange={handleInputChange} value={formData.confirmPassword} type="password" name={SIGNUP_CONFIRM_PASSWORD_NAME} label={SIGNUP_CONFIRM_PASSWORD_LABLE} placeholder={SIGNUP_CONFIRM_PASSWORD_LABLE} error={!passwordMatch && "Password do not match"} />
+           <CustomInput onChange={handleInputChange} required value={formData.confirmPassword} type="password" name={SIGNUP_CONFIRM_PASSWORD_NAME} label={SIGNUP_CONFIRM_PASSWORD_LABLE} placeholder={SIGNUP_CONFIRM_PASSWORD_LABLE} error={!passwordMatch && "Password do not match"} />
 
-           <CustomInput onChange={handleAvatarChange} label={SIGNUP_AVATAR_LABLE} type="file" name={SIGNUP_AVATAR_NAME} accept="image/*" className="border-none focus:border" id="avatar"  />
+           <CustomInput onChange={handleAvatarChange} required label={SIGNUP_AVATAR_LABLE} type="file" name={SIGNUP_AVATAR_NAME} accept="image/*" className="border-none focus:border" id="avatar"  />
 
            {formData.avatar && (
               <div className="my-2">

@@ -1,10 +1,18 @@
+
+
 export interface IUser {
-  _id: string;
-  name: string;
-  email: string;
-  avatar: object;
-  role: string;
-  createdAt: string;
+      name: string;
+    email: string;
+    password: string;
+    avatar: {
+        public_id: string;
+        url: string;
+    };
+    role: string;
+    createdAt: Date;
+    resetPasswordToken?: string;
+    resetPasswordExpire?: Date;
+
 }
 
 export interface LoginResponse{

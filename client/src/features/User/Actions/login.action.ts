@@ -1,6 +1,6 @@
 import axios from "axios";
-import {  LoginResponse, LoginUserRequest } from "./login.interface";
-import { loginFailure, loginRequest, loginSuccess } from "./login.reducer";
+import {  LoginResponse, LoginUserRequest } from "../Component/Login/login.interface";
+import { loginFailure, loginRequest, loginSuccess } from "../Component/Login/login.reducer";
 import { API_ENDPOINT, AppThunk } from "../../../store";
 
 const loginRoute = `${API_ENDPOINT}/login`

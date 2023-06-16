@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_ENDPOINT, AppThunk } from "../../../store";
-import { LogoutResponse } from "./logout.interface";
-import { logoutFailure, logoutRequest, logoutSuccess } from "./logout.reducer";
+import { LogoutResponse } from "../Component/Logout/logout.interface";
+import { logoutFailure, logoutRequest, logoutSuccess } from "../Component/Logout/logout.reducer";
 
 const logoutRoute = `${API_ENDPOINT}/logout`
 

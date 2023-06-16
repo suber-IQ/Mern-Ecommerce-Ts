@@ -1,7 +1,10 @@
+import ResetPassword from "../../features/Auth/ResetPassword/ResetPassword"
 
 const ResetPasswordPage = () => {
   return (
-    <div>ResetPasswordPage</div>
+    <>
+     <ResetPassword />
+    </>
   )
 }
 

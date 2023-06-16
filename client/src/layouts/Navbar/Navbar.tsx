@@ -10,17 +10,18 @@ import { RootState } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from '@reduxjs/toolkit';
-import { logoutUser } from '../../features/User/Logout/logout.action';
+import { logoutUser } from '../../features/Auth/Logout/logout.action';
 import { toast } from 'react-toastify';
-import { clearLogoutErrors } from '../../features/User/Logout/logout.reducer';
+import { clearLogoutErrors } from '../../features/Auth/Logout/logout.reducer';
 
 const Navbar = () => {
 
   const dispatch: ThunkDispatch<any, any, AnyAction> = useDispatch();
-  const { error, isAuthenticated,response } = useSelector((state: RootState) => state.logout);
+  const { error,response } = useSelector((state: RootState) => state.logout);
   const [showSearchBar, setShowSearchBar] = useState(false);
-  const [openCloseAccount,setOpenCloseAccount] = useState(true);
+  // const [openCloseAccount,setOpenCloseAccount] = useState(true);
   const searchRef = useRef<HTMLDivElement>(null);
+  const [toggleAccount,setToggleAccount] = useState(false);
 
   const toggleSearchBar = () => {
     setShowSearchBar(!showSearchBar);
@@ -28,7 +29,8 @@ const Navbar = () => {
  
 
   const handleAccountToggle = () => {
-    setOpenCloseAccount(!openCloseAccount);
+    // setOpenCloseAccount(!openCloseAccount);
+    setToggleAccount(!toggleAccount);
   }
   useEffect(() => {
     if (error) {
@@ -59,10 +61,10 @@ const Navbar = () => {
     };
   }, []);
 
-  const handleLogout = () => {
-    dispatch(logoutUser());
+  // const handleLogout = () => {
+  //   dispatch(logoutUser());
     
-  }
+  // }
   return (
     <>
       {/* Mobile and Tablet Screen */}
@@ -108,12 +110,24 @@ const Navbar = () => {
               <CustomRouteLink to={'/cart'}>
                 <AiOutlineShoppingCart size="24" />
               </CustomRouteLink>
+              {/* after use this  */}
+              {/* <div className='relative'>
+              <AiOutlineUser onClick={handleAccountToggle} size="24" />
+                <div className='absolute right-0 mt-2 w-40 z-40 bg-white rounded shadow-md'>
+                 <div className='flex flex-col space-y-2'>
+                 <CustomRouteLink to={'/login'} children="Login" />
+                  <CustomRouteLink to={'/signup'} children="Signup" />
+                 </div>
+                </div>
+                <div className='absolute right-0 mt-2 w-40 z-40 bg-white rounded shadow-md'>
+                    <AccountLayout onLogout={handleLogout} />
+                 </div>
+              </div> */}
 
               {/* isAuthencated or not */}
-             {
+             {/* {
               isAuthenticated ?  (
                 <div className="relative">
-                <AiOutlineUser onClick={handleAccountToggle} size="24" />
                 {openCloseAccount && (
                   <div className="absolute right-0 mt-2 w-40 z-40 bg-white rounded shadow-md">
                     <AccountLayout onLogout={handleLogout} />
@@ -121,11 +135,11 @@ const Navbar = () => {
                 )}
               </div>
               ) : (
-                <CustomRouteLink to={'/account/signup'}>
+                <CustomRouteLink to={'/signup'}>
                   <AiOutlineUser size="24" />
                 </CustomRouteLink>
               ) 
-             }
+             } */}
 
               
               

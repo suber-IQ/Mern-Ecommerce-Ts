@@ -1,5 +1,5 @@
 export const SIGNUP_HEADING = "Sign Up";
-export const LOGIN_ROUTE = "/account/login";
+export const LOGIN_ROUTE = "/login";
 export const SIGNUP_FROM_REDIRECT = "/";
 export const SIGNUP_SUBMIT_BUTTON_NAME = "Sign Up"; 
 

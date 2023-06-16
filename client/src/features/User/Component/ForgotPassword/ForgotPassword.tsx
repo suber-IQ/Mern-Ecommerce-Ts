@@ -12,7 +12,7 @@ import { AnyAction } from "@reduxjs/toolkit";
 import { RootState } from "../../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { clearForgotPasswordState } from "./forgot.password.reducer";
-import { forgotPasswordUser } from "./forgot.password.action";
+import { forgotPasswordUser } from "../../Actions/forgot.password.action";
 
 const ForgotPassword = () => {
       const dispatch: ThunkDispatch<any, any, AnyAction> = useDispatch();
@@ -72,7 +72,7 @@ const ForgotPassword = () => {
     )
   } 
           <span className="animate-bounce">
-          <CustomRouteLink className="text-blue-800 text-md" to={"/account/login"} children={"Login here ? "} />
+          <CustomRouteLink className="text-blue-800 text-md" to={"/login"} children={"Login here ? "} />
           </span>
           
         </div>

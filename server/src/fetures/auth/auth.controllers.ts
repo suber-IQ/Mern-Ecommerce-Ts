@@ -24,7 +24,7 @@ class UserController {
 
     const { name, email, password } = req.body;
 
-    const user: IUser = await UserModel.create({
+    const user: IUser | null = await UserModel.create({
       name,
       email,
       password,
@@ -47,7 +47,7 @@ class UserController {
       return next(new ErrorHandler('Please Enter Email & Password', HTTP_STATUS.BAD_REQUEST));
     }
 
-    const user = await UserModel.findOne({ email }).select('+password');
+    const user: IUser | null = await UserModel.findOne({ email }).select('+password');
 
     if (!user) {
       return next(new ErrorHandler('Invalid email or password', HTTP_STATUS.UNAUTHORIZED));
@@ -129,11 +129,11 @@ class UserController {
       return next(new ErrorHandler('Reset Password Token is invalid or has been expired', HTTP_STATUS.BAD_REQUEST));
     }
 
-    if (req.body.password != req.body.confirmPassword) {
+    if (req.body.newPassword != req.body.confirmPassword) {
       return next(new ErrorHandler('Password does not match', HTTP_STATUS.BAD_REQUEST));
     }
 
-    user.password = req.body.password;
+    user.password = req.body.newPassword;
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
 

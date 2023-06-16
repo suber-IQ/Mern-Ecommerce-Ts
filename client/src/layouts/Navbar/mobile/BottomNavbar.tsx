@@ -26,7 +26,7 @@ const BottomNavbar = () => {
                   </CustomRouteLink>
             </li>
             <li>
-                  <CustomRouteLink to={"/account/signup"} className='flex flex-col items-center'>
+                  <CustomRouteLink to={"/signup"} className='flex flex-col items-center'>
                       <FaUser />  
                      <small>Account</small>
                   </CustomRouteLink>
