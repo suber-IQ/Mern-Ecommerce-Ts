@@ -224,7 +224,7 @@ class UserController {
   // 👉 Get Signle User(admin)
 
   public getSingleUser = catchAsyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    const user = await UserModel.findById<IUser>(req.params.id);
+    const user: IUser | null = await UserModel.findById<IUser>(req.params.id);
 
     if (!user) {
       return next(new ErrorHandler(`User does not exist with Id: ${req.params.id}`, HTTP_STATUS.NOT_FOUND));

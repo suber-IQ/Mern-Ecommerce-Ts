@@ -3,13 +3,19 @@ import thunk, { ThunkAction } from 'redux-thunk';
 import { combineReducers } from '@reduxjs/toolkit';
 import userReducer from './features/User/Reducers/user.reducer';
 import profileReducer from './features/User/Reducers/profile.reducer';
+import forgotPasswordReducer from './features/User/Reducers/forgot.password.reducer';
+import allUsersReducer from './features/User/Reducers/all.users.reducer';
+import userDetailsReducer from './features/User/Reducers/user.details.reducer';
 
 // Define the login Api endpoint
 export const API_ENDPOINT = "http://localhost:8000/api/v1";
 
 const rootReducer = combineReducers({
   user: userReducer,
-  profile: profileReducer
+  profile: profileReducer,
+  forgotPassword: forgotPasswordReducer,
+  allUsers: allUsersReducer,
+  userDetials: userDetailsReducer
 
 });
 

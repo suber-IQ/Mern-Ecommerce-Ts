@@ -29,11 +29,11 @@ const allUsersSlice = createSlice({
       },
     });
     
-    export const {
+export const {
       allUsersRequest,
       allUsersSuccess,
       allUsersFail,
       clearErrors,
     } = allUsersSlice.actions;
     
-    export default allUsersSlice.reducer;
+export default allUsersSlice.reducer;
