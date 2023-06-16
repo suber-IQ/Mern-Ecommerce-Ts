@@ -1,18 +1,11 @@
 import { BsFillArrowUpRightCircleFill } from "react-icons/bs";
-import CustomButton from "../../../components/Button/CustomButton"
-import CustomHeading from "../../../components/Heading/CustomHeading";
-import CustomInput from "../../../components/Input/CustomInput"
-import CustomLoader from "../../../components/Loading/CustomLoader";
-import CustomRouteLink from "../../../components/RouteLink/CustomRouteLink"
 import { SIGNUP_LINK_TEXT, SIGNUP_ROUTE } from "../Login/login.constant";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "@reduxjs/toolkit";
-import { RootState } from "../../../store";
 import { useDispatch, useSelector } from "react-redux";
-import { clearForgotPasswordState } from "./forgot.password.reducer";
-import { forgotPasswordUser } from "../../Actions/forgot.password.action";
+import { forgotPasswordUser } from "../../Actions/User/forgot.password.action";
 
 const ForgotPassword = () => {
       const dispatch: ThunkDispatch<any, any, AnyAction> = useDispatch();

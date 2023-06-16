@@ -1,7 +1,7 @@
 import axios from "axios";
-import { API_ENDPOINT, AppThunk } from "../../../store";
-import { LoadUserResponse } from "../Interfaces/user.interface";
-import { loadUserFail, loadUserRequest, loadUserSuccess } from "../Reducers/user.reducer";
+import { API_ENDPOINT, AppThunk } from "../../../../store";
+import { LoadUserResponse } from "../../Interfaces/user.interface";
+import { loadUserFail, loadUserRequest, loadUserSuccess } from "../../Reducers/user.reducer";
 
 const loadUserRoute = `${API_ENDPOINT}/user/me`
 

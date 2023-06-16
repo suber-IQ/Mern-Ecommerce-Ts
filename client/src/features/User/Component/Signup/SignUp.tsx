@@ -1,16 +1,8 @@
 import { useEffect, useState } from "react"
-import CustomButton from "../../../components/Button/CustomButton"
-import CustomHeading from "../../../components/Heading/CustomHeading"
-import CustomInput from "../../../components/Input/CustomInput"
-import CustomRouteLink from "../../../components/RouteLink/CustomRouteLink"
 import { toast } from "react-toastify"
 import { useDispatch, useSelector } from "react-redux"
-import { signUpUser } from "../../Actions/signup.action"
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit"
-import { clearErrors } from "./signup.reducer"
-import { RootState } from "../../../store"
 import { useNavigate } from "react-router-dom"
-import CustomLoader from "../../../components/Loading/CustomLoader"
 import { LOGIN_ROUTE, SIGNUP_AVATAR_LABLE, SIGNUP_AVATAR_NAME, SIGNUP_CONFIRM_PASSWORD_LABLE, SIGNUP_CONFIRM_PASSWORD_NAME, SIGNUP_EMAIL_LABLE, SIGNUP_EMAIL_NAME, SIGNUP_FROM_REDIRECT, SIGNUP_HEADING, SIGNUP_NAME_LABLE, SIGNUP_NAME_NAME, SIGNUP_PASSWORD_LABLE, SIGNUP_PASSWORD_NAME, SIGNUP_PLACEHOLDER_EMAIL, SIGNUP_PLACEHOLDER_NAME, SIGNUP_SUBMIT_BUTTON_NAME } from "./signup.constant"
 
 // name ,email, password, avatar

@@ -1,8 +1,4 @@
 import { useEffect, useState } from "react"
-import CustomButton from "../../../components/Button/CustomButton"
-import CustomHeading from "../../../components/Heading/CustomHeading"
-import CustomInput from "../../../components/Input/CustomInput"
-import CustomRouteLink from "../../../components/RouteLink/CustomRouteLink"
 import { ThunkDispatch } from 'redux-thunk';
 
 import {
@@ -21,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { toast } from 'react-toastify';
 import { AnyAction } from "@reduxjs/toolkit"
-import { loginUser } from "../../Actions/login.action"
+import { loginUser } from "../../Actions/User/login.action"
 import { RootState } from "../../../store"
 import { clearErrors } from "./login.reducer"
 import CustomLoader from "../../../components/Loading/CustomLoader"

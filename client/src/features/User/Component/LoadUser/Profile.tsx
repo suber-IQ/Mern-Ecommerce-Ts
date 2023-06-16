@@ -1,10 +1,6 @@
 import { useSelector } from "react-redux"
-import CustomHeading from "../../../components/Heading/CustomHeading"
-import { RootState } from "../../../store"
-import CustomRouteLink from "../../../components/RouteLink/CustomRouteLink";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import CustomLoader from "../../../components/Loading/CustomLoader";
 
 const Profile = () => {
       const navigate = useNavigate();

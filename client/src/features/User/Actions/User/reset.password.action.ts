@@ -1,7 +1,7 @@
 import axios from "axios";
-import { API_ENDPOINT, AppThunk } from "../../../store";
-import { ResetPasswordRequest, ResetPasswordResponse } from "../Component/ResetPassword/reset.password.interface";
-import { resetPasswordFailure, resetPasswordRequest, resetPasswordSuccess } from "../Component/ResetPassword/reset.password.reducer";
+import { API_ENDPOINT, AppThunk } from "../../../../store";
+import { ResetPasswordRequest, ResetPasswordResponse } from "../../Interfaces/forgot.password.interface";
+import { resetPasswordFail, resetPasswordRequest, resetPasswordSuccess } from "../../Reducers/forgot.password.reducer";
 
 const resetPasswordRoute = `${API_ENDPOINT}/password/reset`
 
@@ -14,7 +14,7 @@ export const resetPassword = (resetPasswordData: ResetPasswordRequest): AppThunk
             });
             dispatch(resetPasswordSuccess(response.data)); 
       } catch (error: any) {
-            dispatch(resetPasswordFailure({
+            dispatch(resetPasswordFail({
                   message: error.response.data.message,
                   status: error.response.status
             }));

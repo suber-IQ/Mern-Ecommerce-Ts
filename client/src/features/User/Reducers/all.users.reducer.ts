@@ -34,6 +34,6 @@ export const {
       allUsersSuccess,
       allUsersFail,
       clearErrors,
-    } = allUsersSlice.actions;
+} = allUsersSlice.actions;
     
 export default allUsersSlice.reducer;

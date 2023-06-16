@@ -1,16 +1,9 @@
 import {  useEffect, useState } from "react";
-import CustomInput from "../../../components/Input/CustomInput";
-import CustomButton from "../../../components/Button/CustomButton";
-import CustomHeading from "../../../components/Heading/CustomHeading";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
-import { resetPassword } from "../../Actions/reset.password.action";
-import { ResetPasswordRequest } from "./reset.password.interface";
-import { RootState } from "../../../store";
+import { resetPassword } from "../../Actions/User/reset.password.action";
 import { toast } from "react-toastify";
-import { clearRessetPasswordErrors } from "./reset.password.reducer";
-import CustomLoader from "../../../components/Loading/CustomLoader";
 
 
 const ResetPassword = () => {
