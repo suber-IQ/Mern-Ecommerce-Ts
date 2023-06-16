@@ -22,7 +22,7 @@ export interface UserState{
 
 export interface ErrorResponse{
       message: string;
-      status: number | null;
+      status: number;
 }
 
 // Login Request and Response
@@ -63,6 +63,6 @@ export interface LoadUserResponse{
 // Logout Response
 export interface LogoutResponse {
       success: boolean;
-      message: string | null;
+      message: string;
       status: number;
 }

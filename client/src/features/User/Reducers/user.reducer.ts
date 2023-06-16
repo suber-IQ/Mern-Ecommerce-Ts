@@ -81,6 +81,7 @@ export const {
       loadUserRequest,
       loginUserSuccess,
       registerUserSuccess,
+      logoutUserSuccess,
       loadUserSuccess,
       loginUserFail,
       registerUserFail,

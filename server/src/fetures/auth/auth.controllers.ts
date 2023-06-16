@@ -213,10 +213,10 @@ class UserController {
   // 👉 Get all users(admin)
 
   public getAllUser = catchAsyncHandler(async (req: Request, res: Response) => {
-    const users = await UserModel.find<IUser>();
+    const users: IUser[] | null = await UserModel.find<IUser>();
 
     res.status(200).json({
-      sucess: true,
+      success: true,
       users
     });
   });
