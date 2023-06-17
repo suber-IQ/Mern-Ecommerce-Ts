@@ -5,7 +5,7 @@ import { loginUserFail, loginUserRequest, loginUserSuccess } from "../../Reducer
 
 const loginRoute = `${API_ENDPOINT}/login`
 
-export const loginUser = (loginData: LoginUserRequest): AppThunk => async (dispatch) => {
+export const login = (loginData: LoginUserRequest): AppThunk => async (dispatch) => {
    try {
     dispatch(loginUserRequest());
     const response = await axios.post<LoginUserResponse>(loginRoute,loginData);

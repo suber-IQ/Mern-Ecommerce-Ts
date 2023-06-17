@@ -14,26 +14,7 @@ import SearchPage from './pages/Product/SearchPage';
 import ContactPage from './pages/User/ContactPage';
 import AboutPage from './pages/User/AboutPage';
 import ProfilePage from './pages/User/ProfilePage';
-// import UpdateProfilePage from './pages/User/UpdateProfilePage';
-// import ProtectedRoute from './shared/services/ProtectedRoute';
-// import UpdatePasswordPage from './pages/User/UpdatePasswordPage';
 import ResetPasswordPage from './pages/User/ResetPasswordPage';
-// import ShippingPage from './pages/Order/ShippingPage';
-// import OrderSuccessPage from './pages/Order/OrderSuccessPage';
-// import MyOrderPage from './pages/Order/MyOrderPage';
-// import ConfirmOrderPage from './pages/Order/ConfirmOrderPage';
-// import DashboardPage from './pages/Admin/DashboardPage';
-// import ProductListPage from './pages/Admin/ProductListPage';
-// import NewProductPage from './pages/Admin/NewProductPage';
-// import UpdateProductPage from './pages/Admin/UpdateProductPage';
-// import OrderListPage from './pages/Admin/OrderListPage';
-// import ProcessOrderPage from './pages/Admin/ProcessOrderPage';
-// import UsersListPage from './pages/Admin/UsersListPage';
-// import UpdateUserPage from './pages/Admin/UpdateUserPage';
-// import ProductReviewsPage from './pages/Admin/ProductReviewsPage';
-// import NotFoundLayout from './layouts/NotFound/NotFoundLayout';
-// import { loadStripe } from '@stripe/stripe-js';
-// import PaymentPage from './pages/Payment/PaymentPage';
 import AuthProtectedRoute from './shared/services/AuthProtectedRoute';
 import ForgotPasswordPage from './pages/User/ForgotPasswordPage';
 
@@ -71,7 +52,7 @@ const App = () => {
 
             {/* User */}
             <Route path='/contact' element={<ContactPage />} />
-            <Route path='/about' element={<AuthProtectedRoute> <AboutPage /> </AuthProtectedRoute>} />
+            <Route path='/about' element={<AboutPage />} />
             <Route path="/account" element={<AuthProtectedRoute>
                <ProfilePage />
             </AuthProtectedRoute>} />
@@ -82,7 +63,7 @@ const App = () => {
 
             <Route path='/password/forgot' element={<ForgotPasswordPage />} />
              <Route path="/password/reset/:token" element={<ResetPasswordPage />} />
-           
+
          </Routes>
          <ToastContainer />
       </BrowserRouter>

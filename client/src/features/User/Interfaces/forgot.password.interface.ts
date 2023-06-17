@@ -23,13 +23,13 @@ export interface ForgotPasswordResponse{
 
 //Reset Password 
 export interface ResetPasswordRequest{
-       token: string | null;
+       token: string | undefined;
        newPassword: string;
        confirmPassword: string;          
 }
 
 export interface ResetPasswordResponse{
-      token: string | null;
+      token: string | undefined;
       success: boolean;
       status: number;
       user: IUser | null;     

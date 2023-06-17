@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { ThunkDispatch } from 'redux-thunk';
-
 import {
   DEFAULT_EMAIL_LABEL,
   DEFAULT_PASSWORD_LABEL,
@@ -17,15 +16,19 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { toast } from 'react-toastify';
 import { AnyAction } from "@reduxjs/toolkit"
-import { loginUser } from "../../Actions/User/login.action"
-import { RootState } from "../../../store"
-import { clearErrors } from "./login.reducer"
-import CustomLoader from "../../../components/Loading/CustomLoader"
 import { BsFillArrowUpRightCircleFill } from "react-icons/bs"
+import { RootState } from "../../../../store";
+import { clearErrors } from "../../Actions/User/clear.errors";
+import { login } from "../../Actions/User/login.action";
+import CustomHeading from "../../../../components/Heading/CustomHeading";
+import CustomRouteLink from "../../../../components/RouteLink/CustomRouteLink";
+import CustomInput from "../../../../components/Input/CustomInput";
+import CustomButton from "../../../../components/Button/CustomButton";
+import CustomLoader from "../../../../components/Loading/CustomLoader";
 
 const Login = () => {
   const dispatch: ThunkDispatch<any, any, AnyAction> = useDispatch();
-  const { error, loading, isAuthenticated } = useSelector((state: RootState) => state.login);
+  const { error, loading, isAuthenticated } = useSelector((state: RootState) => state.user);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -58,7 +61,7 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(loginUser(formData));
+    dispatch(login(formData));
   };
 
 
@@ -112,10 +115,3 @@ const Login = () => {
 
 export default Login
 
-
-{/* <span>
-          {CREATE_ACCOUNT_TEXT}
-          <CustomRouteLink className={PRIMARY_TEXT_COLOR} to={SIGNUP_ROUTE}>
-            {SIGNUP_LINK_TEXT}
-          </CustomRouteLink>
-        </span> */}

@@ -5,7 +5,7 @@ import { forgotPasswordFail, forgotPasswordRequest, forgotPasswordSuccess } from
 
 const forgotPasswordRoute = `${API_ENDPOINT}/password/forgot`
 
-export const forgotPasswordUser = (forgotPasswordData: ForgotPasswordRequest): AppThunk => async (dispatch) => {
+export const forgotPassword = (forgotPasswordData: ForgotPasswordRequest): AppThunk => async (dispatch) => {
    try {
     dispatch(forgotPasswordRequest());
     const response = await axios.post<ForgotPasswordResponse>(forgotPasswordRoute,forgotPasswordData);

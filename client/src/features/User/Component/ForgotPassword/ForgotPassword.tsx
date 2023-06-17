@@ -5,18 +5,25 @@ import { toast } from "react-toastify";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
-import { forgotPasswordUser } from "../../Actions/User/forgot.password.action";
+import { RootState } from "../../../../store";
+import CustomHeading from "../../../../components/Heading/CustomHeading";
+import { clearErrors } from "../../Actions/User/clear.errors";
+import CustomInput from "../../../../components/Input/CustomInput";
+import CustomRouteLink from "../../../../components/RouteLink/CustomRouteLink";
+import CustomLoader from "../../../../components/Loading/CustomLoader";
+import CustomButton from "../../../../components/Button/CustomButton";
+import { forgotPassword } from "../../Actions/User/forgot.password.action";
 
 const ForgotPassword = () => {
       const dispatch: ThunkDispatch<any, any, AnyAction> = useDispatch();
-  const { error,loading, message } = useSelector((state: RootState) => state.forgotPassword);
+    const { error,loading, message } = useSelector((state: RootState) => state.forgotPassword);
      
       const[email,setEmail] = useState("");
 
 
           const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
-            dispatch(forgotPasswordUser({email}));
+            dispatch(forgotPassword({email}));
           };
 
           useEffect(() => {
@@ -25,14 +32,14 @@ const ForgotPassword = () => {
             
                   toast.error("Login failed: " + String(error));
                   return () => {
-                    dispatch(clearForgotPasswordState());
+                    dispatch(clearErrors());
                   };
                 }
                
             if (message) {
               toast.success(message);
             }
-          }, [dispatch, error, message]);
+          }, [dispatch, error, toast,message]);
         
         
   return (

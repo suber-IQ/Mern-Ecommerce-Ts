@@ -4,11 +4,18 @@ import { useDispatch, useSelector } from "react-redux"
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit"
 import { useNavigate } from "react-router-dom"
 import { LOGIN_ROUTE, SIGNUP_AVATAR_LABLE, SIGNUP_AVATAR_NAME, SIGNUP_CONFIRM_PASSWORD_LABLE, SIGNUP_CONFIRM_PASSWORD_NAME, SIGNUP_EMAIL_LABLE, SIGNUP_EMAIL_NAME, SIGNUP_FROM_REDIRECT, SIGNUP_HEADING, SIGNUP_NAME_LABLE, SIGNUP_NAME_NAME, SIGNUP_PASSWORD_LABLE, SIGNUP_PASSWORD_NAME, SIGNUP_PLACEHOLDER_EMAIL, SIGNUP_PLACEHOLDER_NAME, SIGNUP_SUBMIT_BUTTON_NAME } from "./signup.constant"
+import { RootState } from "../../../../store"
+import { clearErrors } from "../../Actions/User/clear.errors"
+import CustomHeading from "../../../../components/Heading/CustomHeading"
+import CustomInput from "../../../../components/Input/CustomInput"
+import CustomLoader from "../../../../components/Loading/CustomLoader"
+import CustomButton from "../../../../components/Button/CustomButton"
+import CustomRouteLink from "../../../../components/RouteLink/CustomRouteLink"
+import { register } from "../../Actions/User/signup.action"
 
 // name ,email, password, avatar
 const SignUp = () => {
-  const { error,loading, isAuthenticated } = useSelector((state: RootState) => state.signup);
-
+  const { error, loading, isAuthenticated } = useSelector((state: RootState) => state.user);
   const dispatch: ThunkDispatch<any, any, AnyAction> = useDispatch();
   const navigate = useNavigate();
 
@@ -56,7 +63,7 @@ const SignUp = () => {
     e.preventDefault();
     // Handle form submission here
      const { name, email, password, avatar} = formData;
-    dispatch(signUpUser({ name,email,password,avatar}));
+     dispatch(register({name,email,password,avatar}));
   };
 
   useEffect(() => {

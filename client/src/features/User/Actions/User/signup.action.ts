@@ -5,7 +5,7 @@ import { API_ENDPOINT, AppThunk } from "../../../../store";
 
 const signUpRoute = `${API_ENDPOINT}/register`
 
-export const signUpUser = (signUpData: RegisterUserRequest): AppThunk => async (dispatch) => {
+export const register = (signUpData: RegisterUserRequest): AppThunk => async (dispatch) => {
    try {
     dispatch(registerUserRequest());
     const response = await axios.post<RegisterUserResponse>(signUpRoute,signUpData);

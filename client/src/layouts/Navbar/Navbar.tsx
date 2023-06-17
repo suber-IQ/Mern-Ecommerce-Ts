@@ -1,51 +1,40 @@
 import HeaderNavbar from './mobile/HeaderNavbar';
 import logo from '../../assets/react.svg';
-import { AiOutlineShoppingCart, AiOutlineSearch, AiOutlineUser } from 'react-icons/ai';
+import { AiOutlineShoppingCart, AiOutlineSearch } from 'react-icons/ai';
 import { useEffect, useRef, useState } from 'react';
 import SearchBar from './SearchBar';
 import CustomRouteLink from '../../components/RouteLink/CustomRouteLink';
 import BottomNavbar from './mobile/BottomNavbar';
-import AccountLayout from '../Account/Account';
-import { RootState } from '../../store';
-import { useDispatch, useSelector } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from '@reduxjs/toolkit';
-import { logoutUser } from '../../features/Auth/Logout/logout.action';
-import { toast } from 'react-toastify';
-import { clearLogoutErrors } from '../../features/Auth/Logout/logout.reducer';
 
 const Navbar = () => {
 
-  const dispatch: ThunkDispatch<any, any, AnyAction> = useDispatch();
-  const { error,response } = useSelector((state: RootState) => state.logout);
+  // const dispatch: ThunkDispatch<any, any, AnyAction> = useDispatch();
+  // const { error} = useSelector((state: RootState) => state.user);
   const [showSearchBar, setShowSearchBar] = useState(false);
   // const [openCloseAccount,setOpenCloseAccount] = useState(true);
   const searchRef = useRef<HTMLDivElement>(null);
-  const [toggleAccount,setToggleAccount] = useState(false);
+  // const [toggleAccount,setToggleAccount] = useState(false);
 
   const toggleSearchBar = () => {
     setShowSearchBar(!showSearchBar);
   };
  
 
-  const handleAccountToggle = () => {
-    // setOpenCloseAccount(!openCloseAccount);
-    setToggleAccount(!toggleAccount);
-  }
-  useEffect(() => {
-    if (error) {
-      console.log(error);
+  // const handleAccountToggle = () => {
+  //   // setOpenCloseAccount(!openCloseAccount);
+  //   setToggleAccount(!toggleAccount);
+  // }
+  // useEffect(() => {
+  //   if (error) {
+  //     console.log(error);
 
-      toast.error("Logout failed: " + String(error));
-      return () => {
-        dispatch(clearLogoutErrors());
-      };
-    }
-    
-    if(response && response.success === true) {
-      toast.error("Logout failed: " + String(response.message));
-    }
-  }, [response?.success, dispatch, error]);
+  //     toast.error("Logout failed: " + String(error));
+  //     return () => {
+  //       dispatch(clearErrors());
+  //     };
+  //   }
+ 
+  // }, [dispatch, error]);
  
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {

@@ -1,4 +1,4 @@
-import Profile from "../../features/User/LoadUser/Profile"
+import Profile from "../../features/User/Component/LoadUser/Profile"
 
 const ProfilePage = () => {
   return (
